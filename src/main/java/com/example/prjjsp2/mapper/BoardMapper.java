@@ -17,10 +17,12 @@ public interface BoardMapper {
     int insert(Board board);
 
     @Select("""
-            SELECT * FROM board
+            SELECT * 
+            FROM board
             ORDER BY id DESC
+            LIMIT #{offset}, 10
             """)
-    List<Board> selectAll();
+    List<Board> selectAllPaging(Integer offset);
 
 
     @Select("""
@@ -37,7 +39,8 @@ public interface BoardMapper {
 
     @Update("""
             UPDATE board
-            SET title=#{title},content=#{content}
+            SET title=#{title},
+                content=#{content}
             WHERE id = #{id}
             """)
     int update(Board board);
