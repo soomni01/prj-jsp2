@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -41,9 +40,9 @@ public class BoardController {
     public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
                           Model model,
                           Board board) {
-        List<Board> list = service.list(page);
-
-        model.addAttribute("boardList", list);
+        Map<String, Object> result = service.list(page);
+        System.out.println(result);
+        model.addAllAttributes(result);
 
     }
 

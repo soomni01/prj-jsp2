@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
+    <style>
+        .active {
+            background-color: cornflowerblue;
+        }
+    </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Title</title>
@@ -45,11 +50,18 @@
                 </tbody>
             </table>
 
-            <div>
-                <c:forEach begin="1" end="15" var="pageNumber">
-                    <a href="/board/list?page=${pageNumber}">${pageNumber}</a>
-                </c:forEach>
-            </div>
+            <c:if test="${pageInfo.hasPrevPage}">
+                <a href="/board/list?page=${pageInfo.prevPageNumber}">이전</a>
+            </c:if>
+
+            <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
+                <a class="${pageInfo.currentPageNumber == pageNumber ? 'active' : ''}"
+                   href="/board/list?page=${pageNumber}">${pageNumber}</a>
+            </c:forEach>
+
+            <c:if test="${pageInfo.hasNextPage}">
+                <a href="/board/list?page=${pageInfo.nextPageNumber}">다음</a>
+            </c:if>
         </div>
     </div>
 </div>
