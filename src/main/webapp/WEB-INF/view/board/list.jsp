@@ -24,14 +24,20 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h2>게시물 목록</h2>
+            <h2 class="my-3">게시물 목록</h2>
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">id</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">작성자</th>
-                    <th scope="col">날짜</th>
+                    <th>
+                        <i class="fa-solid fa-hashtag"></i>
+                    </th>
+                    <th class="w-50">제목</th>
+                    <th>
+                        <i class="fa-regular fa-user"></i>
+                    </th>
+                    <th class="d-none d-lg-table-cell">
+                        <i class="fa-regular fa-calendar-days"></i>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +50,7 @@
                             </a>
                         </td>
                         <td>${board.writer}</td>
-                        <td>${board.inserted}</td>
+                        <td class="d-none d-lg-table-cell">${board.inserted}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
