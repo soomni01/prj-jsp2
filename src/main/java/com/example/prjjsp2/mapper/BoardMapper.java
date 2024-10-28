@@ -1,10 +1,7 @@
 package com.example.prjjsp2.mapper;
 
 import com.example.prjjsp2.dto.Board;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -15,7 +12,8 @@ public interface BoardMapper {
             INSERT INTO board(title,content,writer)
             VALUES (#{title}, #{content}, #{writer})
             """)
-//    @Options(useGeneratedKeys = true, keyProperty = "board.id")
+    // 아래 Options를 설정해야 글 쓰고 바로 border.id를 인식함
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Board board);
 
     @Select("""
@@ -35,5 +33,12 @@ public interface BoardMapper {
             DELETE FROM board
             WHERE id = #{id}
             """)
-    void deleteById(Integer id);
+    int deleteById(Integer id);
+
+    @Update("""
+            UPDATE board
+            SET title=#{title},content=#{content}
+            WHERE id = #{id}
+            """)
+    int update(Board board);
 }

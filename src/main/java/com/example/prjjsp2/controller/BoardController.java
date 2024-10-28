@@ -31,8 +31,9 @@ public class BoardController {
         service.add(board);
 
         rttr.addFlashAttribute("message", Map.of("type", "success", "text", "새 게시물을 등록하였습니다."));
-
-        return "redirect:/board/list";
+        rttr.addAttribute("id", board.getId());
+        System.out.println(board.getId());
+        return "redirect:/board/view";
     }
 
     @GetMapping("list")
@@ -60,5 +61,16 @@ public class BoardController {
 
     @GetMapping("edit")
     public void editBoard(Model model, Integer id) {
+        Board board = service.get(id);
+        model.addAttribute("board", board);
+    }
+
+    @PostMapping("edit")
+    public String editBoard(Board board, RedirectAttributes rttr) {
+        service.update(board);
+
+        rttr.addFlashAttribute("message", Map.of("type", "success", "text", "게시물을 수정했습니다."));
+        rttr.addAttribute("id", board.getId());
+        return "redirect:/board/view";
     }
 }
