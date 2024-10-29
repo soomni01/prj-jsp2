@@ -83,27 +83,47 @@ public class MemberController {
     }
 
     @GetMapping("edit")
-    public void edit(Member member, Model model) {
-        model.addAttribute("member", service.getMemberById(member.getId()));
+    public String edit(String id,
+                       Model model,
+                       RedirectAttributes rttr,
+                       HttpSession session,
+                       @SessionAttribute("loggedInMember") Member member) {
+        if (service.hasAccess(id, member)) {
+            model.addAttribute("member", service.getMemberById(id));
+            return null;
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", "권한이 없습니다."));
+//            TODO: redirect하면서 session 을 없애거나, 다른 화면으로 이동
+            return "redirect:/member/login";
+        }
     }
 
     @PostMapping("edit")
-    public String edit(Member member, RedirectAttributes rttr) {
-        try {
-            service.updateMember(member);
-            rttr.addFlashAttribute("message", Map.of("type", "success",
-                    "text", "회원정보가 수정되었습니다."));
+    public String edit(Member member,
+                       RedirectAttributes rttr,
+                       @SessionAttribute("loggedInMember") Member loggedInMember) {
+        if (service.hasAccess(member.getId(), loggedInMember)) {
+            try {
+                service.updateMember(member);
+                rttr.addFlashAttribute("message", Map.of("type", "success",
+                        "text", "회원정보가 수정되었습니다."));
+            } catch (DuplicateKeyException e) {
+                rttr.addFlashAttribute("message", Map.of("type", "danger",
+                        "text", STR."\{member.getNickName()}은 이미 사용중인 별명입니다."));
 
-        } catch (DuplicateKeyException e) {
-            rttr.addFlashAttribute("message", Map.of("type", "danger",
-                    "text", STR."\{member.getNickName()}은 이미 사용중인 별명입니다."));
+                rttr.addAttribute("id", member.getId());
+                return "redirect:/member/edit";
+            }
 
             rttr.addAttribute("id", member.getId());
-            return "redirect:/member/edit";
-        }
+            return "redirect:/member/view";
+        } else {
 
-        rttr.addAttribute("id", member.getId());
-        return "redirect:/member/view";
+            rttr.addFlashAttribute("message", Map.of("type", "danger",
+                    "text", "권한이 없습니다."));
+            return "redirect:/member/login";
+        }
     }
 
     @GetMapping("edit-password")
