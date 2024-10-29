@@ -35,7 +35,29 @@ public class MemberController {
 
     @GetMapping("list")
     public void list(Model model) {
-        model.addAttribute("memberList", service.list());
+        model.addAttribute("memberList", service.memberList());
 
+    }
+
+    @GetMapping("view")
+    public void view(String id, Model model) {
+        model.addAttribute("member", service.getMemberById(id));
+    }
+
+    @PostMapping("delete")
+    public String delete(Member member, String id, String password, RedirectAttributes rttr) {
+        if (service.deleteMember(id, password)) {
+            rttr.addFlashAttribute("message", Map.of("type", "success", "text", "회원 탈퇴에 성공했습니다."));
+            return "redirect:/member/signup";
+        } else {
+            rttr.addFlashAttribute("message", Map.of("type", "danger", "text", "회원 탈퇴에 실패했습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/member/view";
+        }
+    }
+
+    @GetMapping("edit")
+    public void edit(Model model) {
+        
     }
 }

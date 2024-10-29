@@ -32,7 +32,6 @@ public class BoardController {
 
         rttr.addFlashAttribute("message", Map.of("type", "success", "text", "새 게시물이 등록되었습니다."));
         rttr.addAttribute("id", board.getId());
-        System.out.println(board.getId());
         return "redirect:/board/view";
     }
 
@@ -41,7 +40,6 @@ public class BoardController {
                           Model model,
                           Board board) {
         Map<String, Object> result = service.list(page);
-        System.out.println(result);
         model.addAllAttributes(result);
 
     }

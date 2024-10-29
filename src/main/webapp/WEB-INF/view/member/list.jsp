@@ -30,7 +30,11 @@
                 <tbody>
                 <c:forEach items="${memberList}" var="member">
                     <tr>
-                        <td>${member.id}</td>
+                        <td>
+                            <a href="/member/view?id=${member.id}">
+                                    ${member.id}
+                            </a>
+                        </td>
                         <td>${member.nickName}</td>
                         <td>${member.inserted}</td>
                     </tr>

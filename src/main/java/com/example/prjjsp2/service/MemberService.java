@@ -19,7 +19,16 @@ public class MemberService {
         mapper.addMember(member);
     }
 
-    public List<Member> list() {
-        return mapper.list();
+    public List<Member> memberList() {
+        return mapper.memberList();
+    }
+
+    public Member getMemberById(String id) {
+        return mapper.getMemberById(id);
+    }
+
+    public boolean deleteMember(String id, String password) {
+        int cnt = mapper.deleteMember(id, password);
+        return cnt == 1;
     }
 }
