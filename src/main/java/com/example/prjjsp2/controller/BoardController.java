@@ -69,7 +69,7 @@ public class BoardController {
         } catch (RuntimeException e) {
             rttr.addFlashAttribute("message",
                     Map.of("type", "danger",
-                            "text", id + "번 게시물이 삭제중 문제가 발생하였습니다."));
+                            "text", id + "번 게시물 삭제중 문제가 발생하였습니다."));
             rttr.addAttribute("id", id);
             return "redirect:/board/view";
         }
