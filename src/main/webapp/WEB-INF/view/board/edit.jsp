@@ -29,10 +29,6 @@
                               id="inputContent1">${board.content}</textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="writer" class="form-label">작성자</label>
-                    <input type="text" name="writer" class="form-control" id="writer" value="${board.writer}">
-                </div>
-                <div class="mb-3">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
                         <i class="fa-regular fa-floppy-disk"></i>
                         수정
