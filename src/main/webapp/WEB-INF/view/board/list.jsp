@@ -55,22 +55,34 @@
                 </c:forEach>
                 </tbody>
             </table>
-
-            <c:if test="${pageInfo.hasPrevPage}">
-                <a href="/board/list?page=${pageInfo.prevPageNumber}">이전</a>
-            </c:if>
-
-            <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
-                <a class="${pageInfo.currentPageNumber == pageNumber ? 'active' : ''}"
-                   href="/board/list?page=${pageNumber}">${pageNumber}</a>
-            </c:forEach>
-
-            <c:if test="${pageInfo.hasNextPage}">
-                <a href="/board/list?page=${pageInfo.nextPageNumber}">다음</a>
-            </c:if>
         </div>
     </div>
 </div>
+
+<nav class="mt-4">
+    <ul class="pagination justify-content-center">
+        <c:if test="${pageInfo.hasPrevPage}">
+            <li class="page-item">
+                <a href="/board/list?page=${pageInfo.prevPageNumber}">
+                    &laquo;
+                </a>
+            </li>
+        </c:if>
+        <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
+            <li class="page-item">
+                <a class="${pageInfo.currentPageNumber == pageNumber ? 'active' : ''}"
+                   href="/board/list?page=${pageNumber}"> ${pageNumber} </a>
+            </li>
+        </c:forEach>
+        <c:if test="${pageInfo.hasNextPage}">
+            <li class="page-item">
+                <a href="/board/list?page=${pageInfo.nextPageNumber}">
+                    &raquo;
+                </a>
+            </li>
+        </c:if>
+    </ul>
+</nav>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"

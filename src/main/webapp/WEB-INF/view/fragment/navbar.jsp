@@ -25,7 +25,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ${param.active == 'list' ? 'active : '''}" href="/member/list">
+                        <a class="nav-link" href="">
                             <i class="fa-regular fa-address-book"></i>
                             회원가입
                         </a>
