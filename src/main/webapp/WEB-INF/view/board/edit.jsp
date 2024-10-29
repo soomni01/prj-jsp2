@@ -12,7 +12,7 @@
           crossorigin="anonymous" referrerpolicy="no-referrer"/>
 </head>
 <body>
-<c:import url="/WEB-INF/view/fragment/navbar.jsp"/>
+<c:import url="/WEB-INF/fragment/navbar.jsp"/>
 
 <div class="container">
     <div class="row">
