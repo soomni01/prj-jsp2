@@ -58,12 +58,21 @@ public class BoardController {
     }
 
     @PostMapping("delete")
-    public String deleteBoard(Integer id, RedirectAttributes rttr) {
-        service.remove(id);
-
-        rttr.addFlashAttribute("message", Map.of("type", "success", "text", "게시물이 삭제되었습니다."));
-        rttr.addAttribute("id", id);
-        return "redirect:/board/list";
+    public String deleteBoard(Integer id,
+                              RedirectAttributes rttr,
+                              @SessionAttribute(value = "loggedInMember") Member member) {
+        try {
+            service.remove(id, member);
+            rttr.addFlashAttribute("message", Map.of("type", "success", "text", "게시물이 삭제되었습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/board/list";
+        } catch (RuntimeException e) {
+            rttr.addFlashAttribute("message",
+                    Map.of("type", "danger",
+                            "text", id + "번 게시물이 삭제중 문제가 발생하였습니다."));
+            rttr.addAttribute("id", id);
+            return "redirect:/board/view";
+        }
     }
 
     @GetMapping("edit")
