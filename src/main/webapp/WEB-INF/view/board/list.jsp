@@ -59,24 +59,24 @@
     </div>
 </div>
 
-<nav class="mt-4">
+<nav class="mt-4" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <c:if test="${pageInfo.hasPrevPage}">
             <li class="page-item">
-                <a href="/board/list?page=${pageInfo.prevPageNumber}">
+                <a class="page-link" href="/board/list?page=${pageInfo.prevPageNumber}">
                     &laquo;
                 </a>
             </li>
         </c:if>
         <c:forEach begin="${pageInfo.leftPageNumber}" end="${pageInfo.rightPageNumber}" var="pageNumber">
             <li class="page-item">
-                <a class="${pageInfo.currentPageNumber == pageNumber ? 'active' : ''}"
+                <a class="page-link ${pageInfo.currentPageNumber == pageNumber ? 'active' : ''}"
                    href="/board/list?page=${pageNumber}"> ${pageNumber} </a>
             </li>
         </c:forEach>
         <c:if test="${pageInfo.hasNextPage}">
             <li class="page-item">
-                <a href="/board/list?page=${pageInfo.nextPageNumber}">
+                <a class="page-link" href="/board/list?page=${pageInfo.nextPageNumber}">
                     &raquo;
                 </a>
             </li>
