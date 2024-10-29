@@ -16,6 +16,8 @@
     <c:param name="active" value="list"/>
 </c:import>
 
+<c:set value="${sessionScope.loggedInMember.id == board.writer}" var="hasAccess"/>
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -46,41 +48,46 @@
                 <input class="form-control" type="datetime-local" value="${board.inserted}" readonly>
             </div>
 
+            <c:if test="${hasAccess}">
+                <button class="btn btn-danger" type="button" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                    <i class="fa-solid fa-trash-can"></i>
+                    삭제
+                </button>
 
-            <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                    data-bs-target="#deleteModal">
-                <i class="fa-solid fa-trash-can"></i>
-                삭제
-            </button>
-
-            <a class="btn btn-primary" href="/board/edit?id=${board.id}">
-                <i class="fa-regular fa-pen-to-square"></i>
-                수정
-            </a>
+                <a class="btn btn-primary" href="/board/edit?id=${board.id}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                    수정
+                </a>
+            </c:if>
         </div>
     </div>
 </div>
-<form id="deleteBoard1" action="/board/delete" method="post">
-    <input type="hidden" name="id" value="${board.id}">
-</form>
+<c:if test="${hasAccess}">
+    <form id="deleteBoard1" action="/board/delete" method="post">
+        <input type="hidden" name="id" value="${board.id}">
+    </form>
+</c:if>
 
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">삭제 확인</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ${board.id}번 게시물을 삭제하시겠습니까?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                <button form="deleteBoard1" class="btn btn-primary">삭제하기</button>
+<c:if test="${hasAccess}">
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">삭제 확인</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                        ${board.id}번 게시물을 삭제하시겠습니까?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                    <button form="deleteBoard1" class="btn btn-primary">삭제하기</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</c:if>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
