@@ -40,4 +40,14 @@ public class MemberService {
         int cnt = mapper.updatePassword(id, oldPassword, newPassword);
         return cnt == 1;
     }
+
+    public Member login(String id, String password) {
+        Member member = mapper.selectByIdAndPassword(id, password);
+       
+        if (member == null) {
+            return null;
+        } else {
+            return member;
+        }
+    }
 }

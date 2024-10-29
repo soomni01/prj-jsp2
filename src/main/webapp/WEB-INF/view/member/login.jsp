@@ -26,11 +26,11 @@
             <form method="post">
                 <div class="mb-3">
                     <label for="inputId" class="form-label">아이디</label>
-                    <input type="text" id="inputId" class="form-control">
+                    <input type="text" id="inputId" class="form-control" name="id">
                 </div>
                 <div class="mb-3">
                     <label for="inputPassword" class="form-label">암호</label>
-                    <input type="text" id="inputPassword" class="form-control">
+                    <input type="text" id="inputPassword" class="form-control" name="password">
                 </div>
                 <button class="btn btn-primary">
                     로그인
