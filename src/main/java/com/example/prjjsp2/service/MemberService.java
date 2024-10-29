@@ -31,4 +31,8 @@ public class MemberService {
         int cnt = mapper.deleteMember(id, password);
         return cnt == 1;
     }
+
+    public void updateMember(Member member) {
+        mapper.updateMember(member);
+    }
 }
