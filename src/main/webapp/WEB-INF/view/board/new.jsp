@@ -29,10 +29,6 @@
                     <textarea name="content" class="form-control" rows="10" id="inputContent1"></textarea>
                 </div>
                 <div class="mb-3">
-                    <label for="writer" class="form-label">작성자</label>
-                    <input type="text" name="writer" class="form-control" id="writer">
-                </div>
-                <div class="mb-3">
                     <button class="btn btn-primary">
                         저장
                     </button>

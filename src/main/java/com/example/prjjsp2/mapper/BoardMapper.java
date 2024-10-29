@@ -1,6 +1,7 @@
 package com.example.prjjsp2.mapper;
 
 import com.example.prjjsp2.dto.Board;
+import com.example.prjjsp2.dto.Member;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -10,11 +11,11 @@ public interface BoardMapper {
 
     @Insert("""
             INSERT INTO board(title,content,writer)
-            VALUES (#{title}, #{content}, #{writer})
+            VALUES (#{board.title}, #{board.content}, #{member.id})
             """)
     // 아래 Options를 설정해야 글 쓰고 바로 border.id를 인식함
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    int insert(Board board);
+    @Options(useGeneratedKeys = true, keyProperty = "board.id")
+    int insert(Board board, Member member);
 
     @Select("""
             SELECT * 
