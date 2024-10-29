@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <c:set value="${not empty sessionScope.loggedInMember}" var="loggedIn"/>
+<c:set value="${sessionScope.loggedInMember.auth.contains('admin')}" var="isAdmin"/>
 
 <div class="mb-4">
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -36,7 +37,7 @@
                             </a>
                         </li>
                     </c:if>
-                    <c:if test="${loggedIn}">
+                    <c:if test="${loggedIn && isAdmin}">
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/member/list">
                                 <i class="fa-regular fa-address-book"></i>
