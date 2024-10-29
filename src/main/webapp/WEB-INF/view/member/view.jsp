@@ -23,8 +23,11 @@
                 <input id="inputId" class="form-control" value="${member.id}" readonly>
             </div>
             <div class="mb-3">
-                <label for="inputPassword" class="form-label">비밀번호</label>
-                <input id="inputPassword" class="form-control" value="${member.password}" readonly>
+                <label for="inputPassword" class="form-label">암호</label>
+                <div class="input-group mb-3">
+                    <input id="inputPassword" class="form-control" value="${member.password}" readonly>
+                    <a href="/member/edit-password?id=${member.id}" class="btn btn-outline-secondary">변경</a>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="inputNickName" class="form-label">별명</label>
