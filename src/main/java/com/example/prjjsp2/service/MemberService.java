@@ -43,11 +43,15 @@ public class MemberService {
 
     public Member login(String id, String password) {
         Member member = mapper.selectByIdAndPassword(id, password);
-       
+
         if (member == null) {
             return null;
         } else {
             return member;
         }
+    }
+
+    public boolean hasAccess(String id, Member member) {
+        return id.equals(member.getId());
     }
 }
