@@ -41,12 +41,15 @@ public class MemberService {
         return cnt == 1;
     }
 
-    public Member login(String id, String password) {
+    public Member get(String id, String password) {
         Member member = mapper.selectByIdAndPassword(id, password);
 
         if (member == null) {
             return null;
         } else {
+            List<String> authList = mapper.selectAuthById(id);
+            member.setAuth(authList);
+
             return member;
         }
     }
