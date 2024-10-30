@@ -44,7 +44,7 @@ public class MemberController {
 
         if (member != null && member.getAuth().contains("admin")) {
             model.addAttribute("memberList", service.memberList());
-            return "member/list";
+            return null;
         } else {
             rttr.addFlashAttribute("message", Map.of("type", "warning",
                     "text", "권한이 없습니다."));
@@ -168,7 +168,7 @@ public class MemberController {
             rttr.addFlashAttribute("message", Map.of("type", "danger",
                     "text", "권한이 없습니다."));
             rttr.addAttribute("id", id);
-            return "redirect:/member/edit-password";
+            return "redirect:/member/login";
         }
     }
 
@@ -196,15 +196,16 @@ public class MemberController {
     }
 
 
-    // 로그아웃은 RequestMapping임
-    @RequestMapping("logout")
+    @GetMapping("logout")
     public String logout(HttpSession session, RedirectAttributes rttr) {
         session.invalidate();
         System.out.println("로그아웃버튼");
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", "로그아웃 되었습니다."));
 
-//        return "redirect:/member/login";
-        return "redirect:/member/list";
+        return "redirect:/member/login";
     }
+
+
 }
+
