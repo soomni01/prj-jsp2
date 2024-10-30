@@ -44,7 +44,8 @@ public interface BoardMapper {
 
 
     @Select("""
-            SELECT * FROM board
+            SELECT *
+            FROM board
             WHERE id = #{id}
             """)
     Board selectById(Integer id);
@@ -64,8 +65,22 @@ public interface BoardMapper {
     int update(Board board);
 
     @Select("""
-            SELECT COUNT(*)
-            FROM board
+            <script>
+                  SELECT COUNT(b.id) 
+                  FROM board b JOIN member m
+                      ON b.writer = m.id
+                  <trim prefix="WHERE" prefixOverrides="OR">
+                      <if test="searchTarget == 'all' or searchTarget == 'title'">
+                          title LIKE CONCAT('%', #{keyword}, '%')
+                      </if>
+                      <if test="searchTarget == 'all' or searchTarget == 'content'">
+                          OR content LIKE CONCAT('%', #{keyword}, '%')
+                      </if>
+                      <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                          OR m.nick_name LIKE CONCAT('%', #{keyword}, '%')
+                      </if>
+                  </trim>
+              </script>
             """)
-    Integer countAll();
+    Integer countAll(String searchTarget, String keyword);
 }
