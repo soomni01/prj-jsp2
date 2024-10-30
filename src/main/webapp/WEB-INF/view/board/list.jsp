@@ -25,7 +25,7 @@
     <div class="row">
         <div class="col">
             <h2 class="my-3">게시물 목록</h2>
-            <table class="table">
+            <table class="table table-hover table-striped">
                 <thead>
                 <tr>
                     <th>
@@ -42,7 +42,7 @@
                 </thead>
                 <tbody>
                 <c:forEach items="${boardList}" var="board">
-                    <tr>
+                    <tr style="cursor: pointer">
                         <td>${board.id}</td>
                         <td>
                             <a href="/board/view?id=${board.id}">
@@ -64,7 +64,7 @@
 <div class="container my-3">
     <form class="row justify-content-center g-1">
         <div class="col-auto">
-            <select name="searchTarget" id="select1" class="form-select">
+            <select name="searchTarget" id="select1" class="form-select" style="cursor: pointer">
                 <option value="all">전체</option>
                 <option value="title" ${param.searchTarget == 'title' ? 'selected' : ''}>제목</option>
                 <option value="content" ${param.searchTarget == 'content' ? 'selected' : ''}>본문</option>

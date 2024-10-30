@@ -14,7 +14,7 @@
 <body>
 
 <c:import url="/WEB-INF/fragment/navbar.jsp">
-    <%--    <c:param name="active" value="login"/>--%>
+    <c:param name="active" value="login"/>
 </c:import>
 
 <div class="container">
