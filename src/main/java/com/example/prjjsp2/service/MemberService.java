@@ -1,6 +1,7 @@
 package com.example.prjjsp2.service;
 
 import com.example.prjjsp2.dto.Member;
+import com.example.prjjsp2.mapper.BoardMapper;
 import com.example.prjjsp2.mapper.MemberMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MemberService {
 
     private final MemberMapper mapper;
+    private final BoardMapper boardMapper;
 
     public void addMember(Member member) {
         mapper.addMember(member);
@@ -28,7 +30,12 @@ public class MemberService {
     }
 
     public boolean deleteMember(String id, String password) {
-        int cnt = mapper.deleteMember(id, password);
+        Member member = mapper.getMemberById(id);
+        int cnt = 0;
+        if (member.getPassword().equals(password)) {
+            boardMapper.deleteByMemberId(id);
+            cnt = mapper.deleteMember(id, password);
+        }
         return cnt == 1;
     }
 

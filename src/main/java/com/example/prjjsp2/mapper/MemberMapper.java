@@ -22,7 +22,7 @@ public interface MemberMapper {
     List<Member> memberList();
 
     @Select("""
-            SELECT id, password, nick_name, description, inserted
+            SELECT *
             FROM member
             WHERE id=#{id};
             """)
