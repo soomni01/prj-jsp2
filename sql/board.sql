@@ -20,7 +20,11 @@ SELECT title, content, writer
 FROM board;
 
 # 게시물의 writer 값을 member에 있는 값으로 update
-# list를 select 시 게시물 작성자와 멤버 id로 join 하기 때문에
+# list를 select 시 게시물 작성자와 멤버 id로 join 하기 때문에 존재하는 id로 설정
 UPDATE board
 SET writer = (SELECT id FROM member LIMIT 1)
 WHERE id > 0;
+
+# board.writer -> member.id 참조 (외래키) 추가
+ALTER TABLE board
+    ADD FOREIGN KEY (writer) REFERENCES member (id);
