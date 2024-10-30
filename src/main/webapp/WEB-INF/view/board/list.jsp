@@ -49,7 +49,7 @@
                                     ${board.title}
                             </a>
                         </td>
-                        <td>${board.writer}</td>
+                        <td>${board.writerNickName}</td>
                         <td class="d-none d-lg-table-cell">${board.inserted}</td>
                     </tr>
                 </c:forEach>
@@ -59,6 +59,30 @@
     </div>
 </div>
 
+<%-- 검색 form --%>
+<%--div.container>div.row>div.col-2+div.col-4+div.col-1--%>
+<div class="container my-3">
+    <form class="row justify-content-center g-1">
+        <div class="col-auto">
+            <select name="searchTarget" id="select1" class="form-select">
+                <option value="all">전체</option>
+                <option value="title" ${param.searchTarget == 'title' ? 'selected' : ''}>제목</option>
+                <option value="content" ${param.searchTarget == 'content' ? 'selected' : ''}>본문</option>
+                <option value="writer" ${param.searchTarget == 'writer' ? 'selected' : ''}>작성자</option>
+            </select>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+            <input type="text" class="form-control" name="keyword" value="${param.keyword}">
+        </div>
+        <div class="col-auto">
+            <button class="btn btn-outline-primary h-100">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+    </form>
+</div>
+
+<%-- pagination --%>
 <nav class="mt-4" aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
         <c:if test="${pageInfo.hasPrevPage}">

@@ -44,11 +44,12 @@ public class BoardController {
 
     @GetMapping("list")
     public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
-                          Model model,
-                          Board board) {
-        Map<String, Object> result = service.list(page);
-        model.addAllAttributes(result);
+                          @RequestParam(required = false) String searchTarget,
+                          @RequestParam(defaultValue = "") String keyword,
+                          Model model) {
+        Map<String, Object> result = service.list(page, searchTarget, keyword);
 
+        model.addAllAttributes(result);
     }
 
     @GetMapping("view")

@@ -18,12 +18,29 @@ public interface BoardMapper {
     int insert(Board board, Member member);
 
     @Select("""
-            SELECT * 
-            FROM board
-            ORDER BY id DESC
-            LIMIT #{offset}, 10
+            <script>
+                SELECT b.id,
+                       b.title,
+                       b.inserted,
+                       m.nick_name writerNickName
+                FROM board b JOIN member m
+                    ON b.writer = m.id
+                <trim prefix="WHERE" prefixOverrides="OR">
+                    <if test="searchTarget == 'all' or searchTarget == 'title'">
+                        title LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'content'">
+                        OR content LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                    <if test="searchTarget == 'all' or searchTarget == 'writer'">
+                        OR m.nick_name LIKE CONCAT('%', #{keyword}, '%')
+                    </if>
+                </trim>
+                ORDER BY b.id DESC
+                LIMIT #{offset}, 10
+            </script>
             """)
-    List<Board> selectAllPaging(Integer offset);
+    List<Board> selectAllPaging(Integer offset, String searchTarget, String keyword);
 
 
     @Select("""
