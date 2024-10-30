@@ -96,7 +96,6 @@ public class MemberController {
         } else {
             rttr.addFlashAttribute("message", Map.of("type", "danger",
                     "text", "권한이 없습니다."));
-//            TODO: redirect하면서 session 을 없애거나, 다른 화면으로 이동
             return "redirect:/member/login";
         }
     }
@@ -184,25 +183,28 @@ public class MemberController {
                         RedirectAttributes rttr,
                         HttpSession session) {
         Member member = service.get(id, password);
-        if (member != null) {
+        if (member == null) {
+            rttr.addFlashAttribute("message", Map.of("type", "warning",
+                    "text", "일치하는 아이디나 패스워드가 없습니다."));
+            return "redirect:/member/login";
+        } else {
             rttr.addFlashAttribute("message", Map.of("type", "success",
-                    "text", "로그인에 성공했습니다."));
+                    "text", "로그인 되었습니다."));
             session.setAttribute("loggedInMember", member);
             return "redirect:/board/list";
-        } else {
-            rttr.addFlashAttribute("message", Map.of("type", "danger",
-                    "text", "일치하는 패스워드나 아이다가 없습니다."));
-            return "redirect:/member/login";
         }
     }
 
-    @PostMapping("logout")
+
+    // 로그아웃은 RequestMapping임
+    @RequestMapping("logout")
     public String logout(HttpSession session, RedirectAttributes rttr) {
         session.invalidate();
-
+        System.out.println("로그아웃버튼");
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", "로그아웃 되었습니다."));
 
-        return "redirect:/member/login";
+//        return "redirect:/member/login";
+        return "redirect:/member/list";
     }
 }
