@@ -39,7 +39,7 @@
                 <label for="" class="form-label">
                     작성자
                 </label>
-                <input type="text" value=${board.writer} class="form-control" readonly>
+                <input type="text" value=${board.writerNickName} class="form-control" readonly>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">
