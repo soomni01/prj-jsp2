@@ -21,6 +21,8 @@
     <c:param name="active" value="list"/>
 </c:import>
 
+<c:set value="${sessionScope.loggedInMember.id == board.writer}" var="hasAccess"/>
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -38,6 +40,9 @@
                     <th class="d-none d-lg-table-cell">
                         <i class="fa-regular fa-calendar-days"></i>
                     </th>
+                    <th>
+                        <i class="fa-solid fa-heart"></i>
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -45,12 +50,21 @@
                     <tr style="cursor: pointer">
                         <td>${board.id}</td>
                         <td>
-                            <a href="/board/view?id=${board.id}">
+                            <a href="/board/view?id=${board.id}" style="text-decoration: none">
                                     ${board.title}
                             </a>
                         </td>
                         <td>${board.writerNickName}</td>
                         <td class="d-none d-lg-table-cell">${board.inserted}</td>
+                        <td>
+                            <form action="/likes/add" method="post" id="likeBoard-${board.id}">
+                                <input type="hidden" name="postId" value="${board.id}">
+                                <button type="button" style="border: none; background-color: transparent"
+                                        onclick="document.getElementById('likeBoard-${board.id}').submit();">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                            </form>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -58,6 +72,12 @@
         </div>
     </div>
 </div>
+<c:if test="${hasAccess}">
+    <form id="likeBoard" action="/likes/add" method="post">
+        <input type="hidden" name="postId" value="${board.id}">
+        <input type="hidden" name="memberId" value="${board.writer}">
+    </form>
+</c:if>
 
 <%-- 검색 form --%>
 <%--div.container>div.row>div.col-2+div.col-4+div.col-1--%>

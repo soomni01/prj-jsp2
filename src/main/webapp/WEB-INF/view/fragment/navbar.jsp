@@ -33,11 +33,20 @@
                         </li>
                     </c:if>
 
+                    <c:if test="${loggedIn}">
+                        <li class="nav-item">
+                            <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/likes/list">
+                                <i class="fa-solid fa-heart"></i>
+                                좋아요
+                            </a>
+                        </li>
+                    </c:if>
+
                     <c:if test="${not loggedIn}">
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'signup' ? 'active' : ''}" href="/member/signup">
                                 <i class="fa-solid fa-user-plus"></i>
-                                회원가입
+                                회원가입ㅇㅇ
                             </a>
                         </li>
                     </c:if>

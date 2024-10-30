@@ -21,6 +21,7 @@ public interface BoardMapper {
             <script>
                 SELECT b.id,
                        b.title,
+                       b.writer,
                        b.inserted,
                        m.nick_name writerNickName
                 FROM board b JOIN member m
