@@ -20,7 +20,7 @@
                     <li class="nav-item">
                         <a class="nav-link ${param.active == 'list' ? 'active' : ''}" href="/board/list">
                             <i class="fa-solid fa-list"></i>
-                            목록dd
+                            목록
                         </a>
                     </li>
 
@@ -55,7 +55,7 @@
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'login' ? 'active' : ''}" href="/member/login">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                                로그인dd
+                                로그인
                             </a>
                         </li>
                     </c:if>
@@ -68,7 +68,6 @@
                             </a>
                         </li>
                     </c:if>
-
 
                     <c:if test="${loggedIn}">
                         <li class="nav-item">
