@@ -13,12 +13,54 @@
 </head>
 <body>
 <c:import url="/WEB-INF/fragment/navbar.jsp">
-    <c:param name="active" value="list"/>
+    <c:param name="active" value="likesList"/>
 </c:import>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6 ">
             <h2>좋아요 목록</h2>
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>
+                        <i class="fa-solid fa-hashtag"></i>
+                    </th>
+                    <th class="w-50">제목</th>
+                    <th>
+                        <i class="fa-regular fa-user"></i>
+                    </th>
+                    <th class="d-none d-lg-table-cell">
+                        <i class="fa-regular fa-calendar-days"></i>
+                    </th>
+                    <th>
+                        <i class="fa-solid fa-heart"></i>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach items="${likeList}" var="like">
+                    <tr style="cursor: pointer">
+                        <td>${like.postId}</td>
+                        <td>
+                            <a href="/board/view?id=${like.postId}" style="text-decoration: none">
+                                    ${like.postTitle}
+                            </a>
+                        </td>
+                        <td>${like.postWriter}</td>
+                        <td class="d-none d-lg-table-cell">${like.inserted}</td>
+                        <td>
+                            <form action="/likes/add" method="post" id="likeBoard-${like.postId}">
+                                <input type="hidden" name="postId" value="${like.postId}">
+                                <button type="button" style="border: none; background-color: transparent"
+                                        onclick="document.getElementById('likeBoard-${like.postId}').submit();">
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

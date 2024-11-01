@@ -10,4 +10,7 @@ public class Like {
     private Integer postId;
     private String memberId;
     private LocalDateTime inserted;
+
+    private String postTitle;
+    private String postWriter;
 }

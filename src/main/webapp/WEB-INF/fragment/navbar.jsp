@@ -45,6 +45,14 @@
                             </a>
                         </li>
                     </c:if>
+                    <c:if test="${loggedIn}">
+                        <li class="nav-item">
+                            <a class="nav-link ${param.active == 'likesList' ? 'active' : ''}" href="/likes/list">
+                                <i class="fa-solid fa-heart"></i>
+                                좋아요
+                            </a>
+                        </li>
+                    </c:if>
                     <c:if test="${not loggedIn}">
                         <li class="nav-item">
                             <a class="nav-link ${param.active == 'login' ? 'active' : ''}" href="/member/login">
