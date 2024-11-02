@@ -196,7 +196,7 @@ public class MemberController {
         }
     }
 
-    @PostMapping("logout")
+    @GetMapping("logout")
     public String logout(HttpSession session, RedirectAttributes rttr) {
         session.invalidate();
 

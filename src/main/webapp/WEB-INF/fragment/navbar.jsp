@@ -63,7 +63,7 @@
                     </c:if>
                     <c:if test="${loggedIn}">
                         <li class="nav-item">
-                            <a class="nav-link ${param.active == 'login' ? 'active' : ''}" href="/member/login">
+                            <a class="nav-link ${param.active == 'logout' ? 'active' : ''}" href="/member/logout">
                                 <i class="fa-solid fa-arrow-right-to-bracket"></i>
                                 로그아웃
                             </a>

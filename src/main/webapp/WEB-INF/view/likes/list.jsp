@@ -53,7 +53,7 @@
                                 <input type="hidden" name="postId" value="${like.postId}">
                                 <button type="button" style="border: none; background-color: transparent"
                                         onclick="document.getElementById('likeBoard-${like.postId}').submit();">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i class="fa-regular fa-heart"></i>
                                 </button>
                             </form>
                         </td>

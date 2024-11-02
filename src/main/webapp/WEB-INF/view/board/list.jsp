@@ -22,7 +22,7 @@
 </c:import>
 
 <c:set value="${sessionScope.loggedInMember.id == board.writer}" var="hasAccess"/>
-
+<c:set value="${sessionScope.loggedInMember.}" var="hasLike" />
 <div class="container">
     <div class="row">
         <div class="col">
@@ -61,7 +61,7 @@
                                 <input type="hidden" name="postId" value="${board.id}">
                                 <button type="button" style="border: none; background-color: transparent"
                                         onclick="document.getElementById('likeBoard-${board.id}').submit();">
-                                    <i class="fa-solid fa-check"></i>
+                                    <i class="fa-regular fa-heart"></i>
                                 </button>
                             </form>
                         </td>
