@@ -64,4 +64,11 @@ public interface MemberMapper {
             WHERE id=#{id}
             """)
     List<String> selectAuthById(String id);
+
+    @Select("""
+            SELECT post_id
+            FROM likes
+            WHERE member_id = #{id}
+            """)
+    List<Integer> selectLikesById(String id);
 }

@@ -14,5 +14,7 @@ public class Member {
     private LocalDateTime inserted;
     // 권한 정보 조회
     private List<String> auth;
+    // 좋아요 정보 조회
+    private List<Integer> likes;
 
 }

@@ -184,6 +184,7 @@ public class MemberController {
                         RedirectAttributes rttr,
                         HttpSession session) {
         Member member = service.get(id, password);
+        System.out.println(member);
         if (member != null) {
             rttr.addFlashAttribute("message", Map.of("type", "success",
                     "text", "로그인에 성공했습니다."));

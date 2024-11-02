@@ -56,7 +56,9 @@ public class MemberService {
         } else {
             List<String> authList = mapper.selectAuthById(id);
             member.setAuth(authList);
-
+            List<Integer> likesList = mapper.selectLikesById(id);
+            member.setLikes(likesList);
+            System.out.println(likesList);
             return member;
         }
     }

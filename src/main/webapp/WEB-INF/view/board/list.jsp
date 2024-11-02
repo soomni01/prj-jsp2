@@ -22,7 +22,7 @@
 </c:import>
 
 <c:set value="${sessionScope.loggedInMember.id == board.writer}" var="hasAccess"/>
-<c:set value="${sessionScope.loggedInMember.}" var="hasLike" />
+
 <div class="container">
     <div class="row">
         <div class="col">
@@ -52,18 +52,36 @@
                         <td>
                             <a href="/board/view?id=${board.id}" style="text-decoration: none">
                                     ${board.title}
+                                    ${liksId}
                             </a>
                         </td>
                         <td>${board.writerNickName}</td>
                         <td class="d-none d-lg-table-cell">${board.inserted}</td>
                         <td>
-                            <form action="/likes/add" method="post" id="likeBoard-${board.id}">
-                                <input type="hidden" name="postId" value="${board.id}">
-                                <button type="button" style="border: none; background-color: transparent"
-                                        onclick="document.getElementById('likeBoard-${board.id}').submit();">
-                                    <i class="fa-regular fa-heart"></i>
-                                </button>
-                            </form>
+                            <c:set var="isLiked" value="false"/>
+                            <c:forEach items="${member.likes}" var="like">
+                                <c:if test="${like == board.id}">
+                                    <c:set var="isLiked" value="true"/>
+                                </c:if>
+                            </c:forEach>
+                            <c:if test="${!isLiked}">
+                                <form action="/likes/add" method="post" id="likeBoard-${board.id}">
+                                    <input type="hidden" name="postId" value="${board.id}">
+                                    <button type="button" style="border: none; background-color: transparent"
+                                            onclick="document.getElementById('likeBoard-${board.id}').submit();">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </button>
+                                </form>
+                            </c:if>
+                            <c:if test="${isLiked}">
+                                <form action="/likes/remove" method="post" id="likeBoard-${board.id}">
+                                    <input type="hidden" name="postId" value="${board.id}">
+                                    <button type="button" style="border: none; background-color: transparent"
+                                            onclick="document.getElementById('likeBoard-${board.id}').submit();">
+                                        <i class="fa-solid fa-heart"></i>
+                                    </button>
+                                </form>
+                            </c:if>
                         </td>
                     </tr>
                 </c:forEach>
@@ -77,7 +95,12 @@
         <input type="hidden" name="postId" value="${board.id}">
         <input type="hidden" name="memberId" value="${board.writer}">
     </form>
+    <form id="noLikeBoard" action="/likes/remove" method="post">
+        <input type="hidden" name="postId" value="${board.id}">
+        <input type="hidden" name="memberId" value="${board.writer}">
+    </form>
 </c:if>
+
 
 <%-- 검색 form --%>
 <%--div.container>div.row>div.col-2+div.col-4+div.col-1--%>

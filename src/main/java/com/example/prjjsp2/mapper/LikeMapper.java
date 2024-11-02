@@ -1,10 +1,7 @@
 package com.example.prjjsp2.mapper;
 
 import com.example.prjjsp2.dto.Like;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -24,4 +21,12 @@ public interface LikeMapper {
                         WHERE l.member_id = #{id}
             """)
     List<Like> likesList(String id);
+
+    @Delete("""
+            DELETE 
+            FROM likes
+            WHERE post_id = #{postId} 
+            AND member_id = #{memberId}
+            """)
+    void removeLike(Like like, String postId, String memberId);
 }

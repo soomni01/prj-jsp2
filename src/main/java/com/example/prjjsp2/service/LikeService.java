@@ -19,7 +19,11 @@ public class LikeService {
 
     public List<Like> getLikesList(String id) {
         List<Like> likeList = mapper.likesList(id);
-//        System.out.println(likeList);
+        System.out.println(likeList);
         return likeList;
+    }
+
+    public void removeLike(Like like, String postId, String memberId) {
+        mapper.removeLike(like, postId, memberId);
     }
 }

@@ -24,7 +24,6 @@ public class LikeController {
                           @RequestParam(defaultValue = "") String postId,
                           @SessionAttribute(value = "loggedInMember") Member member,
                           RedirectAttributes rttr) {
-        System.out.println(postId + "," + member.getId() + ",");
         service.addLike(like, postId, member.getId());
         rttr.addFlashAttribute("message", Map.of("type", "success",
                 "text", postId + "번 게시물에 좋아요 버튼을 눌렀습니다."));
@@ -37,7 +36,18 @@ public class LikeController {
         List<Like> likeList = service.getLikesList(member.getId());
 
         model.addAttribute("likeList", likeList);
-        System.out.println(likeList);
+        // System.out.println(likeList);
         return null;
+    }
+
+    @PostMapping("remove")
+    public String removeLike(Like like,
+                             @RequestParam(defaultValue = "") String postId,
+                             @SessionAttribute(value = "loggedInMember") Member member,
+                             RedirectAttributes rttr) {
+        service.removeLike(like, postId, member.getId());
+        rttr.addFlashAttribute("message", Map.of("type", "success",
+                "text", postId + "번 게시물에 좋아요 버튼을 해제했습니다."));
+        return "redirect:/board/list";
     }
 }

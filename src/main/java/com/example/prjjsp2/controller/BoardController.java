@@ -3,6 +3,7 @@ package com.example.prjjsp2.controller;
 import com.example.prjjsp2.dto.Board;
 import com.example.prjjsp2.dto.Member;
 import com.example.prjjsp2.service.BoardService;
+import com.example.prjjsp2.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import java.util.Map;
 public class BoardController {
 
     private final BoardService service;
+    private final LikeService likesService;
 
     @GetMapping("new")
     public String newBoard(@SessionAttribute(value = "loggedInMember", required = false) Member member,
@@ -46,9 +48,12 @@ public class BoardController {
     public void listBoard(@RequestParam(name = "page", defaultValue = "1") Integer page,
                           @RequestParam(required = false) String searchTarget,
                           @RequestParam(defaultValue = "") String keyword,
-                          Model model) {
+                          Model model,
+                          @SessionAttribute("loggedInMember") Member member) {
         Map<String, Object> result = service.list(page, searchTarget, keyword);
 
+        model.addAttribute(member);
+        System.out.println(member);
         model.addAllAttributes(result);
     }
 
